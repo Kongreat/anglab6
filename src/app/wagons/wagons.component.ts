@@ -125,11 +125,39 @@ export class WagonsComponent implements OnInit {
   }
 
   addWagon(): void{
-    if ((this.wagonNumber.toString().charAt(0) + this.wagonNumber.toString().charAt(1)) === '2'){
-      this.wagonType = this.types.get('20');
-    }
-
     if (this.validateWagon(this.wagonNumber.toString()) === true){
+      if (this.wagonNumber.toString().charAt(0) === '2'){
+        this.wagonType = this.types.get('2');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '3'){
+        this.wagonType = this.types.get('3');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '4'){
+        this.wagonType = this.types.get('4');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '5'){
+        this.wagonType = this.types.get('5');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '6'){
+        this.wagonType = this.types.get('6');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '7'){
+        this.wagonType = this.types.get('7');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '8'){
+        this.wagonType = this.types.get('8');
+      }
+
+      else if (this.wagonNumber.toString().charAt(0) === '9'){
+        this.wagonType = this.types.get('9');
+      }
+
       this.wagonObj = {
         manufacturerName: this.manufacturerName,
         wagonNumber: this.wagonNumber,
@@ -138,7 +166,6 @@ export class WagonsComponent implements OnInit {
       };
 
       this.wagons.push(this.wagonObj);
-
 
       this.manufacturerName = '';
       this.wagonNumber = '';
@@ -155,19 +182,19 @@ export class WagonsComponent implements OnInit {
   deleteWagon(index): void{
     this.wagons.splice(index, 1);
   }
-  editWagon(): void{
-    this.editSection.nativeElement.style.display = 'block';
-  }
-
-  updateWagon(index): void{
-    this.wagons[index].manufacturerName = this.editName.nativeElement.value;
-    this.wagons[index].wagonNumber = this.editNumber.nativeElement.value;
-    this.wagons[index].condition = this.editCondition.nativeElement.value;
-    this.editName.nativeElement.value = '';
-    this.editNumber.nativeElement.value = '';
-    this.editCondition.nativeElement.value = '';
-    this.editSection.nativeElement.style.display = 'none';
-  }
+  // editWagon(): void{
+  //   this.editSection.nativeElement.style.display = 'block';
+  // }
+  //
+  // updateWagon(index): void{
+  //   this.wagons[index].manufacturerName = this.editName.nativeElement.value;
+  //   this.wagons[index].wagonNumber = this.editNumber.nativeElement.value;
+  //   this.wagons[index].condition = this.editCondition.nativeElement.value;
+  //   this.editName.nativeElement.value = '';
+  //   this.editNumber.nativeElement.value = '';
+  //   this.editCondition.nativeElement.value = '';
+  //   this.editSection.nativeElement.style.display = 'none';
+  // }
 
 
   ngOnInit(): void {
