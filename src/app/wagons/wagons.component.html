@@ -1,0 +1,35 @@
+<div>
+  <form [formGroup]="inputForm" (ngSubmit)="addWagon()" >
+    <input required formControlName="name" class="form-control"  type="text" name="manufacturerName" [(ngModel)]="manufacturerName"  maxlength="50">
+    <input required formControlName="number" type="number" name="wagonNumber" [(ngModel)]="wagonNumber" minlength="8" maxlength="8">
+    <input required formControlName="condition" type="text" name="condition" [(ngModel)]="condition">
+    <button type="submit" [disabled]="!inputForm.valid">new Wagon</button>
+  </form>
+</div>
+
+<div>
+  <table>
+    <tr>
+      <th>Manufacturer</th>
+      <th>Number</th>
+      <th>Condition</th>
+      <th>Type</th>
+    </tr>
+    <tr *ngFor="let wagon of wagons; let i = index">
+      <td>{{wagon.manufacturerName}}</td>
+      <td>{{wagon.wagonNumber}}</td>
+      <td>{{wagon.condition}}</td>
+      <td>{{wagon.wagonType}}</td>
+      <td><button (click)="deleteWagon(i)">Delete</button></td>
+      <td><button (click)="editWagon()">Edit</button></td>
+      <td><div id="editSection" #editSection>
+        <input type="text" name="editName" id="editName" #editName>
+        <input type="number" name="editNumber" id="editNumber" #editNumber>
+        <input type="text" name="editCondition" id="editCondition" #editCondition>
+        <button (click)="updateWagon(i)">Update</button>
+      </div></td>
+    </tr>
+  </table>
+</div>
+
+
