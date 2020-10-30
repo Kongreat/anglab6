@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-wagons',
@@ -10,6 +10,10 @@ export class WagonsComponent implements OnInit {
   constructor() {
     this.wagons = [];
   }
+
+  // onSubmit(value: any): void{
+  //   console.log(value.condition);
+  // }
 
   manufacturerName: string;
   wagonNumber: string;
@@ -35,9 +39,10 @@ export class WagonsComponent implements OnInit {
     ['9', 'prochie']
   ]);
 
+  // reactive form
   inputForm = new FormGroup({
-    name: new FormControl(''),
-    number: new FormControl(''),
+    name: new FormControl('', [Validators.maxLength(50), Validators.required]),
+    numb: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
     condition: new FormControl('')
   });
 
@@ -60,6 +65,14 @@ export class WagonsComponent implements OnInit {
     pr6 = parseInt(numb.charAt(5), 10);
     pr7 = parseInt(numb.charAt(6), 10) * 2;
 
+
+    // console.log(pr1);
+    // console.log(pr2);
+    // console.log(pr3);
+    // console.log(pr4);
+    // console.log(pr5);
+    // console.log(pr6);
+    // console.log(pr7);
     // first pr
     sum = 0;
     if ((pr1.toString().length) === 1){
@@ -124,6 +137,13 @@ export class WagonsComponent implements OnInit {
     }
   }
 
+  // numberValidation(control: FormControl): {[s: string]: boolean}{
+  //
+  //   if (this.validateWagon(control.value) === false){
+  //     return {numb: true};
+  //   }
+  //   return null;
+  // }
   addWagon(): void{
     if (this.validateWagon(this.wagonNumber.toString()) === true){
       if (this.wagonNumber.toString().charAt(0) === '2'){
@@ -167,10 +187,7 @@ export class WagonsComponent implements OnInit {
 
       this.wagons.push(this.wagonObj);
 
-      this.manufacturerName = '';
-      this.wagonNumber = '';
-      this.condition = '';
-      this.wagonType = '';
+      this.inputForm.reset();
     }
 
     else{

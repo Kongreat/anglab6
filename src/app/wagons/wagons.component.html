@@ -1,11 +1,23 @@
+<!--reactive form control-->
 <div>
   <form [formGroup]="inputForm" (ngSubmit)="addWagon()" >
-    <input required formControlName="name" class="form-control"  type="text" name="manufacturerName" [(ngModel)]="manufacturerName"  maxlength="50">
-    <input required formControlName="number" type="number" name="wagonNumber" [(ngModel)]="wagonNumber" minlength="8" maxlength="8">
-    <input required formControlName="condition" type="text" name="condition" [(ngModel)]="condition">
+    <input  formControlName="name" class="form-control"  type="text" name="manufacturerName" [(ngModel)]="manufacturerName">
+    <input  formControlName="number" type="number" name="wagonNumber" [(ngModel)]="wagonNumber"  >
+    <input formControlName="condition" type="text" name="condition" [(ngModel)]="condition">
     <button type="submit" [disabled]="!inputForm.valid">new Wagon</button>
   </form>
 </div>
+
+<!--template driven forms-->
+<!--<div class="form-group">-->
+<!--  <form #inputForm = "ngForm" (ngSubmit)="onSubmit(inputForm.value)" >-->
+<!--    <input required type="text" name="manufacturerName" [(ngModel)]="manufacturerName"  maxlength="50" class="form-control">-->
+<!--    <div *ngIf="manufacturerName.invalid"></div>-->
+<!--    <input required type="number" name="wagonNumber" [(ngModel)]="wagonNumber" minlength="8" maxlength="8">-->
+<!--    <input required type="text" name="condition" [(ngModel)]="condition">-->
+<!--    <button type="submit" [disabled]="!inputForm.valid">new Wagon</button>-->
+<!--  </form>-->
+<!--</div>-->
 
 <div>
   <table>
