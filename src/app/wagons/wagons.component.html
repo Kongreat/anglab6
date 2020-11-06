@@ -1,25 +1,20 @@
 <!--reactive form control-->
 <div>
   <form [formGroup]="inputForm" (ngSubmit)="addWagon()" >
-    <input  formControlName="name" class="form-control"  type="text" name="manufacturerName" [(ngModel)]="manufacturerName">
-    <input  formControlName="number" type="number" name="wagonNumber" [(ngModel)]="wagonNumber"  >
-    <input formControlName="condition" type="text" name="condition" [(ngModel)]="condition">
-    <button type="submit" [disabled]="!inputForm.valid">new Wagon</button>
+    <input  formControlName="name" class="form-control"  type="text" name="manufacturerName">
+    <input  formControlName="number" type="text" name="wagonNumber" class="form-control">
+    <input formControlName="condition" type="text" name="condition" class="form-control">
+    <button type="submit" [disabled]="inputForm.invalid">new Wagon</button>
   </form>
 </div>
 
-<!--template driven forms-->
-<!--<div class="form-group">-->
-<!--  <form #inputForm = "ngForm" (ngSubmit)="onSubmit(inputForm.value)" >-->
-<!--    <input required type="text" name="manufacturerName" [(ngModel)]="manufacturerName"  maxlength="50" class="form-control">-->
-<!--    <div *ngIf="manufacturerName.invalid"></div>-->
-<!--    <input required type="number" name="wagonNumber" [(ngModel)]="wagonNumber" minlength="8" maxlength="8">-->
-<!--    <input required type="text" name="condition" [(ngModel)]="condition">-->
-<!--    <button type="submit" [disabled]="!inputForm.valid">new Wagon</button>-->
-<!--  </form>-->
-<!--</div>-->
-
+<!--template driven form -->
 <div>
+  <form>
+    <input type="text" name="editName" id="editName" [(ngModel)]="editName">
+    <input type="number" name="editNumber" id="editNumber" [(ngModel)]="editNumber" (ngModelChange)="validateWagon($event)">
+    <input type="text" name="editCondition" id="editCondition"  [(ngModel)]="editCondition">
+  </form>
   <table>
     <tr>
       <th>Manufacturer</th>
@@ -33,13 +28,9 @@
       <td>{{wagon.condition}}</td>
       <td>{{wagon.wagonType}}</td>
       <td><button (click)="deleteWagon(i)">Delete</button></td>
-<!--      <td><button (click)="editWagon()">Edit</button></td>-->
-<!--      <td><div id="editSection" #editSection>-->
-<!--        <input type="text" name="editName" id="editName" #editName>-->
-<!--        <input type="number" name="editNumber" id="editNumber" #editNumber>-->
-<!--        <input type="text" name="editCondition" id="editCondition" #editCondition>-->
-<!--        <button (click)="updateWagon(i)">Update</button>-->
-<!--      </div></td>-->
+      <td><div id="editSection" #editSection>
+        <button (click)="updateWagon(i)" [hidden]="notValide">Update</button>
+      </div></td>
     </tr>
   </table>
 </div>
