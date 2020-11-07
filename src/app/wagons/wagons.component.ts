@@ -12,9 +12,6 @@ export class WagonsComponent implements OnInit {
     this.wagons = [];
   }
 
-  // onSubmit(value: any): void{
-  //   console.log(value.condition);
-  // }
 
   manufacturerName: string;
   wagonNumber: string;
@@ -27,9 +24,7 @@ export class WagonsComponent implements OnInit {
   notValide = true;
 
   @ViewChild('editSection') editSection: ElementRef;
-  // @ViewChild('editName') editName: ElementRef;
-  // @ViewChild('editNumber') editNumber: ElementRef;
-  // @ViewChild('editCondition') editCondition: ElementRef;
+
   editName: any;
   editNumber: any;
   editCondition: any;
