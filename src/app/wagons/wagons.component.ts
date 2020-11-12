@@ -42,10 +42,21 @@ export class WagonsComponent implements OnInit {
   ]);
 
 
+validateName(val: string): boolean{
+  if (val.length > 50 || val === '' || val === null) {
+    this.notValide = true;
+    return false;
+  }
+
+  else{
+    this.notValide = false;
+    return true;
+  }
+}
 
   validateWagon(val: string): boolean{
     const numb = val.toString();
-    if (numb.length !== 8){
+    if (numb.length !== 8 || numb === null || numb === ''){
       this.notValide = true;
     }
 

@@ -11,7 +11,7 @@
 <!--template driven form -->
 <div>
   <form>
-    <input type="text" name="editName" id="editName" [(ngModel)]="editName">
+    <input type="text" name="editName" id="editName" [(ngModel)]="editName" (ngModelChange)="validateName($event)">
     <input type="number" name="editNumber" id="editNumber" [(ngModel)]="editNumber" (ngModelChange)="validateWagon($event)">
     <input type="text" name="editCondition" id="editCondition"  [(ngModel)]="editCondition">
   </form>
