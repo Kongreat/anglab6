@@ -1,6 +1,6 @@
 <!--reactive form control-->
 <div>
-  <form [formGroup]="inputForm" (ngSubmit)="addWagon()" >
+  <form [formGroup]="inputForm" (ngSubmit)="addWagon()">
     <input  formControlName="name" class="form-control"  type="text" name="manufacturerName">
     <input  formControlName="number" type="text" name="wagonNumber" class="form-control">
     <input formControlName="condition" type="text" name="condition" class="form-control">

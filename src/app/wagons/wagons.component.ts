@@ -1,26 +1,27 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { NumberValidator } from '../shared/number.validator';
+import {CarriageService} from '../services/carriage.service';
+import {CarriageValidatorService} from '../services/carriage-validator.service';
+import {LoggerService} from '../services/logger.service';
 
 @Component({
   selector: 'app-wagons',
   templateUrl: './wagons.component.html',
-  styleUrls: ['./wagons.component.css']
+  styleUrls: ['./wagons.component.css'],
+  providers: [CarriageValidatorService]
 })
 export class WagonsComponent implements OnInit {
-  constructor() {
-    this.wagons = [];
-  }
 
+  constructor(private carriageValidatorService: CarriageValidatorService, private carriageService: CarriageService) {
+
+  }
 
   manufacturerName: string;
   wagonNumber: string;
   condition: string;
   wagonType: string;
-
-  wagons: any;
-  wagonObj: any;
-
+  wagons = [];
   notValide = true;
 
   @ViewChild('editSection') editSection: ElementRef;
@@ -41,6 +42,19 @@ export class WagonsComponent implements OnInit {
     ['9', 'prochie']
   ]);
 
+  ngOnInit(): void {
+    // reactive form
+    this.inputForm = new FormGroup({
+      name: new FormControl('', [Validators.maxLength(50), Validators.required]),
+      number: new FormControl('', [Validators.maxLength(8), Validators.minLength(8), Validators.required, CarriageValidatorService.validateNumber]),
+      condition: new FormControl('', [Validators.required])
+    });
+  }
+
+//
+  addWagon(): void{
+    CarriageService.addWagon(this.inputForm, this.wagons, this.types);
+  }
 
 validateName(val: string): boolean{
   if (val.length > 50 || val === '' || val === null) {
@@ -54,9 +68,10 @@ validateName(val: string): boolean{
   }
 }
 
+
   validateWagon(val: string): boolean{
     const numb = val.toString();
-    if (numb.length !== 8 || numb === null || numb === ''){
+    if (numb.length !== 8 || numb === ''){
       this.notValide = true;
     }
 
@@ -143,104 +158,17 @@ validateName(val: string): boolean{
         return false;
       }
     }
-
-
   }
 
-  addWagon(): void{
-      if (this.inputForm.value.number.toString().charAt(0) === '2'){
-        this.wagonType = this.types.get('2');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '3'){
-        this.wagonType = this.types.get('3');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '4'){
-        this.wagonType = this.types.get('4');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '5'){
-        this.wagonType = this.types.get('5');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '6'){
-        this.wagonType = this.types.get('6');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '7'){
-        this.wagonType = this.types.get('7');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '8'){
-        this.wagonType = this.types.get('8');
-      }
-
-      else if (this.inputForm.value.number.toString().charAt(0) === '9'){
-        this.wagonType = this.types.get('9');
-      }
-
-      this.wagonObj = {
-        manufacturerName: this.inputForm.value.name,
-        wagonNumber: this.inputForm.value.number,
-        condition: this.inputForm.value.condition,
-        wagonType: this.wagonType
-      };
-
-      this.wagons.push(this.wagonObj);
-
-      this.inputForm.reset();
-  }
 
   deleteWagon(index): void{
-    console.log(index);
-    this.wagons.splice(index, 1);
+    CarriageService.deleteWagon(index, this.wagons);
   }
 
   updateWagon(index): void{
-      if (this.editNumber.toString().charAt(0) === '2'){
-        this.wagons[index].wagonType = this.types.get('2');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '3'){
-        this.wagons[index].wagonType = this.types.get('3');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '4'){
-        this.wagons[index].wagonType = this.types.get('4');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '5'){
-        this.wagons[index].wagonType = this.types.get('5');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '6'){
-        this.wagons[index].wagonType = this.types.get('6');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '7'){
-        this.wagons[index].wagonType = this.types.get('7');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '8'){
-        this.wagons[index].wagonType = this.types.get('8');
-      }
-
-      else if (this.editNumber.toString().charAt(0) === '9'){
-        this.wagons[index].wagonType = this.types.get('9');
-      }
-      this.wagons[index].manufacturerName = this.editName;
-      this.wagons[index].wagonNumber = this.editNumber;
-      this.wagons[index].condition = this.editCondition;
+    CarriageService.updateWagon(index, this.editName, this.editNumber, this.editCondition, this.wagons, this.types);
   }
 
 
-  ngOnInit(): void {
-    // reactive form
-    this.inputForm = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50), Validators.required]),
-      number: new FormControl('', [Validators.maxLength(8), Validators.minLength(8), Validators.required,  NumberValidator.validateNumber]),
-      condition: new FormControl('', [Validators.required])
-    });
-  }
+
 }
