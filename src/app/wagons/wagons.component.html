@@ -1,26 +1,29 @@
 <!--reactive form control-->
-<div>
+<div class="reactiveForms">
+  Add:
   <form [formGroup]="inputForm" (ngSubmit)="addWagon()">
     <input  formControlName="name" class="form-control"  type="text" name="manufacturerName">
     <input  formControlName="number" type="text" name="wagonNumber" class="form-control">
     <input formControlName="condition" type="text" name="condition" class="form-control">
-    <button type="submit" [disabled]="inputForm.invalid">new Wagon</button>
+    <button type="submit" [disabled]="inputForm.invalid" class="newWagonButt">new Wagon</button>
   </form>
 </div>
 
 <!--template driven form -->
-<div>
+<div class="templateForms">
+  Edit:
   <form>
     <input type="text" name="editName" id="editName" [(ngModel)]="editName" (ngModelChange)="validateName($event)">
     <input type="number" name="editNumber" id="editNumber" [(ngModel)]="editNumber" (ngModelChange)="validateWagon($event)">
     <input type="text" name="editCondition" id="editCondition"  [(ngModel)]="editCondition">
   </form>
   <table>
-    <tr>
+    <tr class="tableNames">
       <th>Manufacturer</th>
       <th>Number</th>
       <th>Condition</th>
       <th>Type</th>
+      <th>Actions</th>
     </tr>
     <tr *ngFor="let wagon of wagons; let i = index">
       <td>{{wagon.manufacturerName}}</td>

@@ -2,6 +2,39 @@
 /*  display: none;*/
 /*}*/
 
+.reactiveForms{
+  margin-bottom: 10px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.templateForms{
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table{
+  margin-top: 10px;
+  width: 100%;
+}
+
+.newWagonButt{
+  margin-left: 10px;
+}
+
+.tableNames{
+  background-color: #4CAF50;
+}
+
+td{
+  text-align: center;
+}
+
+
+
+
 
 
 

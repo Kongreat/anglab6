@@ -71,7 +71,7 @@ validateName(val: string): boolean{
 
   validateWagon(val: string): boolean{
     const numb = val.toString();
-    if (numb.length !== 8 || numb === ''){
+    if (numb.length !== 8 || numb === '' || numb === null){
       this.notValide = true;
     }
 
