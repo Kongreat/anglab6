@@ -7,7 +7,7 @@ export class CarriageValidatorService {
   constructor() { }
 
 
-  static validateNumber(control: FormControl): {[s: string]: boolean}{
+   validateNumber(control: FormControl): {[s: string]: boolean}{
     let allGood: boolean;
 
     const numb = control.value.toString();
@@ -80,8 +80,8 @@ export class CarriageValidatorService {
       sum += parseInt((pr7.toString().charAt(0)), 10) + parseInt((pr7.toString().charAt(1)), 10);
     }
 
-    console.log(sum);
-    console.log(Math.ceil(sum / 10) * 10);
+    // console.log(sum);
+    // console.log(Math.ceil(sum / 10) * 10);
     if (((Math.ceil(sum / 10) * 10) - (parseInt(numb.charAt(7), 10))) === sum){
       allGood = true;
       console.log(true);

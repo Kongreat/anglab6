@@ -7,108 +7,104 @@ import {LoggerService} from './logger.service';
   providedIn: 'root'
 })
 export class CarriageService {
-  constructor(@Optional() loggerService: LoggerService) { }
-  private value: any;
+  constructor(private loggerService: LoggerService) { }
 
-  manufacturerName: string;
-  wagonNumber: string;
-  condition: string;
-  static wagonType: string;
-  static wagonObj: any;
+  wagons = [];
 
-  notValide = true;
+  types = new Map([
+    ['2', 'kritii'],
+    ['3', 'prochie'],
+    ['4', 'platforma'],
+    ['5', 'sobstvennie'],
+    ['6', 'polyvagon'],
+    ['7', 'cisterna'],
+    ['8', 'isoterm'],
+    ['9', 'prochie']
+  ]);
 
-  @ViewChild('editSection') editSection: ElementRef;
-
-  editName: any;
-  editNumber: any;
-
-  static addWagon(inputForm, wagons, types): void{
-    LoggerService.log(arguments, this.addWagon.name);
-    if (inputForm.value.number.toString().charAt(0) === '2'){
-      this.wagonType = types.get('2');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '3'){
-      this.wagonType = types.get('3');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '4'){
-      this.wagonType = types.get('4');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '5'){
-      this.wagonType = types.get('5');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '6'){
-      this.wagonType = types.get('6');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '7'){
-      this.wagonType = types.get('7');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '8'){
-      this.wagonType = types.get('8');
-    }
-
-    else if (inputForm.value.number.toString().charAt(0) === '9'){
-      this.wagonType = types.get('9');
-    }
-
-    this.wagonObj = {
-      manufacturerName: inputForm.value.name,
-      wagonNumber: inputForm.value.number,
-      condition: inputForm.value.condition,
-      wagonType: this.wagonType
-    };
-
-    wagons.push(this.wagonObj);
-    inputForm.reset();
+  getWagons(): any[]{
+    this.loggerService.log(arguments, this.getWagons.name);
+    return this.wagons;
   }
 
-  static deleteWagon(index, wagons): void{
-    LoggerService.log(arguments, this.deleteWagon.name);
+  addNewWagon(obj): void{
+    this.loggerService.log(arguments, this.addNewWagon.name);
+    if (obj.wagonNumber.toString().charAt(0) === '2'){
+      obj.wagonType = this.types.get('2');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '3'){
+      obj.wagonType = this.types.get('3');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '4'){
+      obj.wagonType = this.types.get('4');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '5'){
+      obj.wagonType = this.types.get('5');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '6'){
+      obj.wagonType = this.types.get('6');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '7'){
+      obj.wagonType = this.types.get('7');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '8'){
+      obj.wagonType = this.types.get('8');
+    }
+
+    else if (obj.wagonNumber.toString().charAt(0) === '9'){
+      obj.wagonType = this.types.get('9');
+    }
+
+    this.wagons.push(obj);
+  }
+
+  deleteWagon(index, wagons): void{
+    this.loggerService.log(arguments, this.deleteWagon.name);
     wagons.splice(index, 1);
   }
 
-  static updateWagon(index, editName, editNumber, editCondition, wagons, types): void{
-    LoggerService.log(arguments, this.updateWagon.name);
-    if (editNumber.toString().charAt(0) === '2'){
-      wagons[index].wagonType = types.get('2');
+  updateWagon(index, obj): void{
+    this.loggerService.log(arguments, this.updateWagon.name);
+    if (obj.wagonNumber.toString().charAt(0) === '2'){
+      this.wagons[index].wagonType = this.types.get('2');
     }
 
-    else if (editNumber.toString().charAt(0) === '3'){
-      wagons[index].wagonType = types.get('3');
+    else if (obj.wagonNumber.toString().charAt(0) === '3'){
+      this.wagons[index].wagonType = this.types.get('3');
     }
 
-    else if (editNumber.toString().charAt(0) === '4'){
-      wagons[index].wagonType = types.get('4');
+    else if (obj.wagonNumber.toString().charAt(0) === '4'){
+      this.wagons[index].wagonType = this.types.get('4');
     }
 
-    else if (editNumber.toString().charAt(0) === '5'){
-      wagons[index].wagonType = types.get('5');
+    else if (obj.wagonNumber.toString().charAt(0) === '5'){
+      this.wagons[index].wagonType = this.types.get('5');
     }
 
-    else if (editNumber.toString().charAt(0) === '6'){
-      wagons[index].wagonType = types.get('6');
+    else if (obj.wagonNumber.toString().charAt(0) === '6'){
+      this.wagons[index].wagonType = this.types.get('6');
     }
 
-    else if (editNumber.toString().charAt(0) === '7'){
-      wagons[index].wagonType = types.get('7');
+    else if (obj.wagonNumber.toString().charAt(0) === '7'){
+      this.wagons[index].wagonType = this.types.get('7');
     }
 
-    else if (editNumber.toString().charAt(0) === '8'){
-      wagons[index].wagonType = types.get('8');
+    else if (obj.wagonNumber.toString().charAt(0) === '8'){
+      this.wagons[index].wagonType = this.types.get('8');
     }
 
-    else if (editNumber.toString().charAt(0) === '9'){
-      wagons[index].wagonType = types.get('9');
+    else if (obj.wagonNumber.toString().charAt(0) === '9'){
+      this.wagons[index].wagonType = this.types.get('9');
     }
-    wagons[index].manufacturerName = editName;
-    wagons[index].wagonNumber = editNumber;
-    wagons[index].condition = editCondition;
+    this.wagons[index].manufacturerName = obj.manufacturerName;
+    this.wagons[index].wagonNumber = obj.wagonNumber;
+    this.wagons[index].condition = obj.condition;
   }
 
 }

@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WagonsComponent } from './wagons/wagons.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoggerService} from './services/logger.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [LoggerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

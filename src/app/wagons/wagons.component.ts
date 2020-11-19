@@ -9,12 +9,12 @@ import {LoggerService} from '../services/logger.service';
   selector: 'app-wagons',
   templateUrl: './wagons.component.html',
   styleUrls: ['./wagons.component.css'],
-  providers: [CarriageValidatorService]
+  providers: [CarriageValidatorService, LoggerService]
 })
 export class WagonsComponent implements OnInit {
-
+  serviceWagons: any[];
   constructor(private carriageValidatorService: CarriageValidatorService, private carriageService: CarriageService) {
-
+    this.serviceWagons = carriageService.getWagons();
   }
 
   // не должны передаваться данные из формы в сервис, должны возвращаться объекты
@@ -25,12 +25,12 @@ export class WagonsComponent implements OnInit {
   wagons = [];
   notValide = true;
 
-  @ViewChild('editSection') editSection: ElementRef;
-
   editName: any;
   editNumber: any;
   editCondition: any;
   inputForm: FormGroup;
+
+  wagonObj: any;
 
   types = new Map([
     ['2', 'kritii'],
@@ -47,14 +47,20 @@ export class WagonsComponent implements OnInit {
     // reactive form
     this.inputForm = new FormGroup({
       name: new FormControl('', [Validators.maxLength(50), Validators.required]),
-      number: new FormControl('', [Validators.maxLength(8), Validators.minLength(8), Validators.required, CarriageValidatorService.validateNumber]),
+      number: new FormControl('', [Validators.maxLength(8), Validators.minLength(8), Validators.required, this.carriageValidatorService.validateNumber]),
       condition: new FormControl('', [Validators.required])
     });
   }
 
 //
   addWagon(): void{
-    CarriageService.addWagon(this.inputForm, this.wagons, this.types);
+    this.wagonObj = {
+      manufacturerName: this.inputForm.value.name,
+      wagonNumber: this.inputForm.value.number,
+      condition: this.inputForm.value.condition,
+      wagonType: null
+    };
+    this.carriageService.addNewWagon(this.wagonObj);
   }
 
 validateName(val: string): boolean{
@@ -146,8 +152,8 @@ validateName(val: string): boolean{
         sum += parseInt((pr7.toString().charAt(0)), 10) + parseInt((pr7.toString().charAt(1)), 10);
       }
 
-      console.log(sum);
-      console.log(Math.ceil(sum / 10) * 10);
+      // console.log(sum);
+      // console.log(Math.ceil(sum / 10) * 10);
       if (((Math.ceil(sum / 10) * 10) - (parseInt(numb.charAt(7), 10))) === sum){
         console.log(true);
         this.notValide = false;
@@ -163,13 +169,16 @@ validateName(val: string): boolean{
 
 
   deleteWagon(index): void{
-    CarriageService.deleteWagon(index, this.wagons);
+    this.carriageService.deleteWagon(index, this.serviceWagons);
   }
 
   updateWagon(index): void{
-    CarriageService.updateWagon(index, this.editName, this.editNumber, this.editCondition, this.wagons, this.types);
+    this.wagonObj = {
+      manufacturerName: this.editName,
+      wagonNumber: this.editNumber,
+      condition: this.editCondition,
+      wagonType: null
+    };
+    this.carriageService.updateWagon(index, this.wagonObj);
   }
-
-
-
 }
