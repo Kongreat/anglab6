@@ -17,6 +17,7 @@ export class WagonsComponent implements OnInit {
 
   }
 
+  // не должны передаваться данные из формы в сервис, должны возвращаться объекты
   manufacturerName: string;
   wagonNumber: string;
   condition: string;
